@@ -1,9 +1,11 @@
+
+use std::fs;
 use std::process::Command;
 
 #[test]
 fn test_main() {
     // Create a test input file
-    let test_input_path = "./tests/files/console_definition.json";
+    let test_input_path = "./tests/files/console_config.json";
     let test_output_path = "./tests/files/output_app_definition.json";
     let test_expected_path = "./tests/files/app_definition.json";
 

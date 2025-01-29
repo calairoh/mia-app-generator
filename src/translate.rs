@@ -92,6 +92,7 @@ struct ConsoleCollection {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 struct ConsoleField {
     name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     description: Option<String>,
     #[serde(rename = "type")]
     field_type: String,
@@ -133,8 +134,11 @@ struct ConsoleEndpoint {
     listeners: HashMap<String, bool>,
     pathRewrite: String,
     description: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     service: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     port: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     useDownstreamProtocol: Option<bool>,
     public: bool,
     secreted: bool,
@@ -147,6 +151,7 @@ struct ConsoleEndpoint {
     #[serde(default)]
      routes: HashMap<String, ConsoleRoute>,
      #[serde(default)]
+     #[serde(skip_serializing_if = "Option::is_none")]
     collectionId: Option<String>
 }
 
@@ -236,6 +241,7 @@ struct ConsoleService {
     annotations: Vec<ConsoleAnnotation>,
     labels: Vec<ConsoleLabel>,
     tags: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     sourceComponentId: Option<String>,
     environment: Vec<ConsoleEnvironmentVariable>,
     resources: ConsoleServiceResources,
@@ -243,6 +249,7 @@ struct ConsoleService {
     terminationGracePeriodSeconds: i32,
     logParser: String,
     swaggerPath: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     configMaps: Option<Vec<ConsoleServiceConfigMap>>,
     #[serde(default)]
     secrets: Vec<ConsoleServiceSecretRef>,
@@ -293,7 +300,9 @@ struct ConsoleServiceResources {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleResourceLimits {
+    #[serde(skip_serializing_if = "Option::is_none")]
     max: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     min: Option<String>,
 }
 
@@ -331,6 +340,7 @@ struct ConsoleServiceConfigMap {
      #[serde(default)]
      subPaths: Vec<String>,
       #[serde(default)]
+      #[serde(skip_serializing_if = "Option::is_none")]
     link: Option<ConsoleConfigMapLink>
 }
 
@@ -464,7 +474,9 @@ struct ApplicationResources {
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct ApplicationResourceLimits {
+    #[serde(skip_serializing_if = "Option::is_none")]
     max: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     min: Option<String>,
 }
 
@@ -501,6 +513,7 @@ struct ApplicationServiceConfigMap {
     viewAsReadOnly: bool,
     files: Vec<ApplicationConfigMapFile>,
     #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     link: Option<ApplicationConfigMapLink>
 }
 
@@ -540,6 +553,7 @@ struct ApplicationEndpoint {
     #[serde(default)]
     routes: HashMap<String, ApplicationRoute>,
     #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     collectionId: Option<String>,
     #[serde(default)]
     listeners: HashMap<String, bool>,
@@ -672,10 +686,10 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                             path: service.probes.readiness.path.clone(),
                             port: service.probes.readiness.port.clone(),
                             initialDelaySeconds: service.probes.readiness.initialDelaySeconds,
-                             periodSeconds: service.probes.readiness.periodSeconds,
+                            periodSeconds: service.probes.readiness.periodSeconds,
                             timeoutSeconds: service.probes.readiness.timeoutSeconds,
                             successThreshold: service.probes.readiness.successThreshold,
-                             failureThreshold: service.probes.readiness.failureThreshold
+                            failureThreshold: service.probes.readiness.failureThreshold
                         },
                          startup: service.probes.startup.clone()
                     },
