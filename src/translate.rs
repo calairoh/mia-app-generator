@@ -133,9 +133,9 @@ struct ConsoleEndpoint {
     listeners: HashMap<String, bool>,
     pathRewrite: String,
     description: String,
-    service: String,
-    port: String,
-    useDownstreamProtocol: bool,
+    service: Option<String>,
+    port: Option<String>,
+    useDownstreamProtocol: Option<bool>,
     public: bool,
     secreted: bool,
     showInDocumentation: bool,
@@ -236,14 +236,14 @@ struct ConsoleService {
     annotations: Vec<ConsoleAnnotation>,
     labels: Vec<ConsoleLabel>,
     tags: Vec<String>,
-    sourceComponentId: String,
+    sourceComponentId: Option<String>,
     environment: Vec<ConsoleEnvironmentVariable>,
     resources: ConsoleServiceResources,
     probes: ConsoleProbes,
     terminationGracePeriodSeconds: i32,
     logParser: String,
     swaggerPath: String,
-    configMaps: Vec<ConsoleServiceConfigMap>,
+    configMaps: Option<Vec<ConsoleServiceConfigMap>>,
     #[serde(default)]
     secrets: Vec<ConsoleServiceSecretRef>,
     containerPorts: Vec<ConsoleContainerPort>,
@@ -623,7 +623,7 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
             (
                 key.clone(),
                 ApplicationService {
-                    componentId: service.sourceComponentId.clone(),
+                    componentId: service.sourceComponentId.clone().unwrap_or("".to_string()),
                     containerPorts: service
                         .containerPorts
                          .iter()
@@ -680,17 +680,22 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                          startup: service.probes.startup.clone()
                     },
                     defaultDocumentationPath: service.swaggerPath.clone(),
-                     defaultConfigMaps: service
+                    defaultConfigMaps: service
                         .configMaps
-                        .iter()
-                        .map(|cm| ApplicationServiceConfigMap {
-                            name: cm.name.clone(),
-                            mountPath: cm.mountPath.clone(),
-                            viewAsReadOnly: cm.viewAsReadOnly,
-                             files: console_config.configMaps.get(&cm.name).map_or_else(|| vec![], |config_map| config_map.files.iter().map(|file| ApplicationConfigMapFile{name: file.name.clone(), content: file.content.clone()}).collect()),
-                            link: cm.link.clone().map(|link| ApplicationConfigMapLink{ targetSection: link.targetSection})
-                         })
-                        .collect(),
+                        .as_ref()
+                        .map(|config_maps| {
+                            config_maps
+                                .iter()
+                                .map(|cm| ApplicationServiceConfigMap {
+                                    name: cm.name.clone(),
+                                    mountPath: cm.mountPath.clone(),
+                                    viewAsReadOnly: cm.viewAsReadOnly,
+                                    files: console_config.configMaps.get(&cm.name).map_or_else(|| vec![], |config_map| config_map.files.iter().map(|file| ApplicationConfigMapFile{name: file.name.clone(), content: file.content.clone()}).collect()),
+                                    link: cm.link.clone().map(|link| ApplicationConfigMapLink{ targetSection: link.targetSection})
+                                })
+                                .collect()
+                        })
+                        .unwrap_or_else(|| vec![]),
                         execPreStop: service.execPreStop.clone(),
                     defaultLogParser: service.logParser.clone(),
                     defaultTerminationGracePeriodSeconds: service.terminationGracePeriodSeconds,
@@ -698,8 +703,7 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                     description: service.description.clone(),
                     dockerImage: service.dockerImage.clone(),
                     repositoryUrl: "".to_string(), // Placeholder
-                     tags: service.tags.clone()
-
+                    tags: service.tags.clone()
                 },
             )
         })
@@ -723,7 +727,7 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                     allowUnknownRequestContentType: endpoint.allowUnknownRequestContentType,
                     allowUnknownResponseContentType: endpoint.allowUnknownResponseContentType,
                     forceMicroserviceGatewayProxy: endpoint.forceMicroserviceGatewayProxy,
-                    service: endpoint.service.clone(),
+                    service: endpoint.service.clone().unwrap_or("".to_string()),
                     routes: endpoint.routes.iter().map(|(route_key, route)| (route_key.clone(), ApplicationRoute {
                             id: route.id.clone(),
                             path: route.path.clone(),

@@ -16,11 +16,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config_data = fs::read_to_string(input_file)?;
     
     // Transform the configuration
-    let result = translate_config(config_data);
-    let app_definition_json = result.unwrap();
-    
-    // Write the output to a file
-    fs::write(output_file, app_definition_json)?;
+    match translate_config(config_data) {
+        Ok(app_definition_json) => {
+            // Write the output to a file
+            fs::write(output_file, app_definition_json)?;
+        }
+        Err(e) => {
+            eprintln!("Error translating config: {}", e);
+            std::process::exit(1);
+        }
+    }
     
     Ok(())
 }

@@ -1,0 +1,3008 @@
+{
+  "applications": {
+    "fast-data-control-plane-with-access-control": {
+      "name": "fast-data-control-plane-with-access-control",
+      "description": "Use this application to instantiate a Control Plane with identity access management to control your Fast Data Runtime with just a few clicks",
+      "generatedFrom": "6658a48bfefeebdda0f69219",
+      "resources": {
+        "services": {
+          "api-gateway": {
+            "name": "api-gateway"
+          },
+          "control-plane": {
+            "name": "control-plane"
+          },
+          "control-plane-fe": {
+            "name": "control-plane-fe"
+          },
+          "redis-auth": {
+            "name": "redis-auth"
+          },
+          "control-plane-login-site": {
+            "name": "control-plane-login-site"
+          },
+          "authentication-service": {
+            "name": "authentication-service"
+          },
+          "authorization-service": {
+            "name": "authorization-service"
+          },
+          "crud-service": {
+            "name": "crud-service"
+          },
+          "micro-lc": {
+            "name": "micro-lc"
+          }
+        },
+        "endpoints": {
+          "/fast-data": {
+            "basePath": "/fast-data",
+            "service": "control-plane"
+          },
+          "/control-plane": {
+            "basePath": "/control-plane",
+            "service": "control-plane-fe"
+          },
+          "/web-login": {
+            "basePath": "/web-login",
+            "service": "control-plane-login-site"
+          },
+          "/authorize": {
+            "basePath": "/authorize",
+            "service": "authentication-service"
+          },
+          "/oauth/token": {
+            "basePath": "/oauth/token",
+            "service": "authentication-service"
+          },
+          "/logout": {
+            "basePath": "/logout",
+            "service": "authentication-service"
+          },
+          "/refreshtoken": {
+            "basePath": "/refreshtoken",
+            "service": "authentication-service"
+          },
+          "/userinfo": {
+            "basePath": "/userinfo",
+            "service": "authentication-service"
+          },
+          "/apps": {
+            "basePath": "/apps",
+            "service": "authentication-service"
+          },
+          "/rond/cp-users": {
+            "basePath": "/rond/cp-users",
+            "service": "crud-service"
+          },
+          "/micro-lc-configurations": {
+            "basePath": "/micro-lc-configurations",
+            "service": "micro-lc"
+          },
+          "/control-plane-manager": {
+            "basePath": "/control-plane-manager",
+            "service": "micro-lc"
+          }
+        },
+        "collections": {
+          "cp-users": {
+            "name": "cp-users"
+          }
+        },
+        "unsecretedVariables": {
+          "CP_REDIS_SCOPE": {
+            "name": "CP_REDIS_SCOPE"
+          },
+          "OKTA_BASE_URL": {
+            "name": "OKTA_BASE_URL"
+          },
+          "CP_APP_ID": {
+            "name": "CP_APP_ID"
+          },
+          "CP_PROVIDER_ID": {
+            "name": "CP_PROVIDER_ID"
+          },
+          "CP_BASE_URL": {
+            "name": "CP_BASE_URL"
+          },
+          "MICRO_LC_VERSION": {
+            "name": "MICRO_LC_VERSION"
+          },
+          "MICRO_LC_MANAGER_VERSION": {
+            "name": "MICRO_LC_MANAGER_VERSION"
+          },
+          "BACK_KIT_VERSION": {
+            "name": "BACK_KIT_VERSION"
+          }
+        }
+      },
+      "sourceMarketplaceItem": {
+        "itemId": "fast-data-control-plane-with-access-control",
+        "tenantId": "mia-platform",
+        "version": "NA"
+      }
+    }
+  },
+  "collections": {
+    "cp-users": {
+      "id": "cp-users",
+      "name": "cp-users",
+      "fields": [
+        {
+          "name": "_id",
+          "description": "_id",
+          "type": "ObjectId",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "name": "creatorId",
+          "description": "creatorId",
+          "type": "string",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "name": "createdAt",
+          "description": "createdAt",
+          "type": "Date",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "name": "updaterId",
+          "description": "updaterId",
+          "type": "string",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "name": "updatedAt",
+          "description": "updatedAt",
+          "type": "Date",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "name": "__STATE__",
+          "description": "__STATE__",
+          "type": "string",
+          "required": true,
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        },
+        {
+          "name": "groups",
+          "type": "Array_string",
+          "required": false,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "required": false,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "required": false,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        },
+        {
+          "name": "providerId",
+          "type": "string",
+          "required": true,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        },
+        {
+          "name": "providerUserId",
+          "type": "string",
+          "required": true,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        },
+        {
+          "name": "realm",
+          "type": "string",
+          "required": false,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        },
+        {
+          "name": "metadata",
+          "type": "RawObject",
+          "required": false,
+          "nullable": false,
+          "sensitivityValue": 0,
+          "encryptionEnabled": false,
+          "encryptionSearchable": false
+        }
+      ],
+      "type": "collection",
+      "internalEndpoints": [
+        {
+          "basePath": "/cp-users",
+          "defaultState": "PUBLIC"
+        }
+      ],
+      "description": "Collection of cp-users",
+      "tags": [
+        "collection"
+      ],
+      "indexes": [
+        {
+          "name": "_id",
+          "type": "normal",
+          "unique": true,
+          "fields": [
+            {
+              "name": "_id",
+              "order": 1
+            }
+          ]
+        },
+        {
+          "name": "createdAt",
+          "type": "normal",
+          "unique": false,
+          "fields": [
+            {
+              "name": "createdAt",
+              "order": -1
+            }
+          ]
+        },
+        {
+          "name": "stateIndex",
+          "type": "normal",
+          "unique": false,
+          "fields": [
+            {
+              "name": "__STATE__",
+              "order": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "endpoints": {
+    "/fast-data": {
+      "basePath": "/fast-data",
+      "type": "custom",
+      "tags": [
+        "control-plane"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/fast-data",
+      "description": "Endpoint /fast-data",
+      "service": "control-plane",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": false,
+      "secreted": false,
+      "showInDocumentation": false,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/control-plane": {
+      "basePath": "/control-plane",
+      "type": "custom",
+      "tags": [
+        "control-plane-fe"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/control-plane",
+      "description": "Endpoint /control-plane",
+      "service": "control-plane-fe",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": false,
+      "secreted": false,
+      "showInDocumentation": false,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/web-login": {
+      "basePath": "/web-login",
+      "type": "custom",
+      "tags": [
+        "auth"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/web-login",
+      "description": "Endpoint /web-login",
+      "service": "control-plane-login-site",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": true,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/authorize": {
+      "basePath": "/authorize",
+      "type": "custom",
+      "tags": [
+        "auth"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/authorize",
+      "description": "Endpoint /authorize",
+      "service": "authentication-service",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": true,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/oauth/token": {
+      "basePath": "/oauth/token",
+      "type": "custom",
+      "tags": [
+        "auth"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/oauth/token",
+      "description": "Endpoint /oauth/token",
+      "service": "authentication-service",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": true,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/logout": {
+      "basePath": "/logout",
+      "type": "custom",
+      "tags": [
+        "auth"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/logout",
+      "description": "Endpoint /logout",
+      "service": "authentication-service",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": true,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/refreshtoken": {
+      "basePath": "/refreshtoken",
+      "type": "custom",
+      "tags": [
+        "auth"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/refreshtoken",
+      "description": "Endpoint /refreshtoken",
+      "service": "authentication-service",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": false,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/userinfo": {
+      "basePath": "/userinfo",
+      "type": "custom",
+      "tags": [
+        "auth"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/userinfo",
+      "description": "Endpoint /userinfo",
+      "service": "authentication-service",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": false,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/apps": {
+      "basePath": "/apps",
+      "type": "custom",
+      "tags": [
+        "auth"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/apps",
+      "description": "Endpoint /apps",
+      "service": "authentication-service",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": true,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/rond/cp-users": {
+      "basePath": "/rond/cp-users",
+      "pathName": "/",
+      "pathRewrite": "/cp-users",
+      "type": "crud",
+      "tags": [
+        "crud"
+      ],
+      "description": "Endpoint /rond/cp-users",
+      "collectionId": "cp-users",
+      "public": false,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "groups.admin",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false,
+      "routes": {
+        "GET/": {
+          "id": "GET/",
+          "verb": "GET",
+          "path": "/",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "POST/": {
+          "id": "POST/",
+          "verb": "POST",
+          "path": "/",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "GET/export": {
+          "id": "GET/export",
+          "verb": "GET",
+          "path": "/export",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": false,
+            "value": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "GET/:id": {
+          "id": "GET/:id",
+          "verb": "GET",
+          "path": "/:id",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "DELETE/:id": {
+          "id": "DELETE/:id",
+          "verb": "DELETE",
+          "path": "/:id",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "DELETE/": {
+          "id": "DELETE/",
+          "verb": "DELETE",
+          "path": "/",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "PATCH/:id": {
+          "id": "PATCH/:id",
+          "verb": "PATCH",
+          "path": "/:id",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "PATCH/": {
+          "id": "PATCH/",
+          "verb": "PATCH",
+          "path": "/",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "GET/count": {
+          "id": "GET/count",
+          "verb": "GET",
+          "path": "/count",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "POST/bulk": {
+          "id": "POST/bulk",
+          "verb": "POST",
+          "path": "/bulk",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "POST/upsert-one": {
+          "id": "POST/upsert-one",
+          "verb": "POST",
+          "path": "/upsert-one",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "PATCH/bulk": {
+          "id": "PATCH/bulk",
+          "verb": "PATCH",
+          "path": "/bulk",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "POST/:id/state": {
+          "id": "POST/:id/state",
+          "verb": "POST",
+          "path": "/:id/state",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        },
+        "POST/state": {
+          "id": "POST/state",
+          "verb": "POST",
+          "path": "/state",
+          "public": {
+            "inherited": true
+          },
+          "secreted": {
+            "inherited": true
+          },
+          "showInDocumentation": {
+            "inherited": true
+          },
+          "acl": {
+            "inherited": true
+          },
+          "backofficeAcl": {
+            "inherited": true
+          },
+          "rateLimit": {
+            "inherited": true
+          },
+          "allowUnknownRequestContentType": {
+            "inherited": true
+          },
+          "allowUnknownResponseContentType": {
+            "inherited": true
+          },
+          "preDecorators": [],
+          "postDecorators": []
+        }
+      },
+      "listeners": {
+        "frontend": true
+      }
+    },
+    "/micro-lc-configurations": {
+      "basePath": "/micro-lc-configurations",
+      "type": "custom",
+      "tags": [
+        "backoffice"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/configurations",
+      "description": "Endpoint /micro-lc-configurations",
+      "service": "micro-lc",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": false,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    },
+    "/control-plane-manager": {
+      "basePath": "/control-plane-manager",
+      "type": "custom",
+      "tags": [
+        "micro-lc"
+      ],
+      "listeners": {
+        "frontend": true
+      },
+      "pathRewrite": "/public",
+      "description": "Endpoint /control-plane-manager",
+      "service": "micro-lc",
+      "port": "80",
+      "useDownstreamProtocol": true,
+      "public": false,
+      "secreted": false,
+      "showInDocumentation": true,
+      "acl": "true",
+      "backofficeAcl": {
+        "inherited": true
+      },
+      "allowUnknownRequestContentType": false,
+      "allowUnknownResponseContentType": false,
+      "forceMicroserviceGatewayProxy": false
+    }
+  },
+  "groups": [],
+  "secrets": [],
+  "cmsCategories": {},
+  "cmsSettings": {
+    "accessGroupsExpression": "isBackoffice && groups.admin"
+  },
+  "cmsAnalytics": {},
+  "cmsDashboard": [],
+  "decorators": {
+    "preDecorators": {},
+    "postDecorators": {}
+  },
+  "services": {
+    "api-gateway": {
+      "name": "api-gateway",
+      "description": "Envoy API Gateway to route requests to the correct service and verify the need of authentication",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "envoyproxy/envoy:v1.29.3",
+      "createdAt": "2025-01-28T09:34:39.735Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "pino",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "api-gateway",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "api-gateway",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "v1.29.3",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-json",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "api-gateway-envoy",
+      "environment": [
+        {
+          "name": "LOG_LEVEL",
+          "value": "{{LOG_LEVEL}}",
+          "valueType": "plain"
+        },
+        {
+          "name": "MICROSERVICE_GATEWAY_SERVICE_NAME",
+          "value": "microservice-gateway",
+          "valueType": "plain"
+        },
+        {
+          "name": "TRUSTED_PROXIES",
+          "value": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+          "valueType": "plain"
+        },
+        {
+          "name": "HTTP_PORT",
+          "value": "3000",
+          "valueType": "plain"
+        },
+        {
+          "name": "USERID_HEADER_KEY",
+          "value": "miauserid",
+          "valueType": "plain"
+        },
+        {
+          "name": "GROUPS_HEADER_KEY",
+          "value": "miausergroups",
+          "valueType": "plain"
+        },
+        {
+          "name": "CLIENTTYPE_HEADER_KEY",
+          "value": "client-type",
+          "valueType": "plain"
+        },
+        {
+          "name": "BACKOFFICE_HEADER_KEY",
+          "value": "isbackoffice",
+          "valueType": "plain"
+        },
+        {
+          "name": "USER_PROPERTIES_HEADER_KEY",
+          "value": "miauserproperties",
+          "valueType": "plain"
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "200m",
+          "min": "100m"
+        },
+        "memoryLimits": {
+          "max": "100Mi",
+          "min": "50Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "frontend",
+          "path": "/healthz",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 1,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "frontend",
+          "path": "/healthz",
+          "initialDelaySeconds": 5,
+          "periodSeconds": 10,
+          "timeoutSeconds": 1,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "args": [
+        "-c",
+        "/etc/envoy/envoy.json",
+        "-l",
+        "{{LOG_LEVEL}}",
+        "--log-format",
+        "{\"level\":\"%l\",\"time\":\"%Y-%m-%dT%T.%fZ\",\"scope\":\"%n\",\"message\":\"%j\"}",
+        "--drain-time-s",
+        "50"
+      ],
+      "terminationGracePeriodSeconds": 60,
+      "logParser": "mia-json",
+      "swaggerPath": "",
+      "configMaps": [
+        {
+          "name": "api-gateway-envoy-config",
+          "mountPath": "/etc/envoy",
+          "viewAsReadOnly": true,
+          "link": {
+            "targetSection": "endpoints"
+          }
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "frontend",
+          "from": 8080,
+          "to": 8080
+        },
+        {
+          "name": "backoffice",
+          "from": 8081,
+          "to": 8081
+        },
+        {
+          "name": "admin",
+          "from": 9901,
+          "to": 9901
+        }
+      ],
+      "execPreStop": [
+        "bash",
+        "-c",
+        "echo -e 'POST /drain_listeners?graceful HTTP/1.1\r\nHost: localhost:9901\r\n\r' > /dev/tcp/localhost/9901 && sleep 55s"
+      ]
+    },
+    "control-plane": {
+      "name": "control-plane",
+      "description": "Control Plane allows management of a Fast Data runtime deployment",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "nexus.mia-platform.eu/fast-data/control-plane:1.1.0",
+      "createdAt": "2025-01-28T09:34:39.936Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "pino",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "control-plane",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "control-plane",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "1.1.0",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-json",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "fd.control-plane",
+      "environment": [
+        {
+          "name": "HTTP_PORT",
+          "valueType": "plain",
+          "value": "3000"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "valueType": "plain",
+          "value": "{{LOG_LEVEL}}"
+        },
+        {
+          "name": "FD_CONTROL_PLANE_CONFIGURATION_FILEPATH",
+          "valueType": "plain",
+          "value": "/home/node/.fd/control-plane/configuration.json"
+        },
+        {
+          "name": "FD_CONTROL_PLANE_STATIC_RUNTIME_CONFIGURATION_FILEPATH",
+          "value": "/home/node/.fd/control-plane-e415135f-d6f3-4a/fast-data-configuration.json",
+          "valueType": "plain",
+          "readOnly": true
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "100m",
+          "min": "20m"
+        },
+        "memoryLimits": {
+          "max": "150Mi",
+          "min": "60Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "http",
+          "path": "/-/healthz",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 3,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "http",
+          "path": "/-/ready",
+          "initialDelaySeconds": 20,
+          "periodSeconds": 10,
+          "timeoutSeconds": 3,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-json",
+      "swaggerPath": "/documentation/json",
+      "configMaps": [
+        {
+          "name": "control-plane-configuration",
+          "mountPath": "/home/node/.fd/control-plane"
+        },
+        {
+          "name": "control-plane-50f0bb88-b6d9-49-runtime-configuration",
+          "mountPath": "/home/node/.fd/control-plane-e415135f-d6f3-4a",
+          "viewAsReadOnly": true
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "http",
+          "from": 80,
+          "to": 3000
+        }
+      ]
+    },
+    "control-plane-fe": {
+      "name": "control-plane-fe",
+      "description": "Control Plane pipelines visualization tool",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "nexus.mia-platform.eu/fast-data/control-plane-frontend:0.2.1",
+      "createdAt": "2025-01-28T09:34:40.154Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "nginx",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "control-plane-fe",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "control-plane-fe",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "0.2.1",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-nginx",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "fd.control-plane-fe",
+      "environment": [
+        {
+          "name": "LOG_LEVEL",
+          "valueType": "plain",
+          "value": "{{LOG_LEVEL}}"
+        },
+        {
+          "name": "BASE_PATH",
+          "valueType": "plain",
+          "value": "/control-plane/"
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "min": "10m"
+        },
+        "memoryLimits": {
+          "max": "25Mi",
+          "min": "5Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "frontend",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 1,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "frontend",
+          "initialDelaySeconds": 5,
+          "periodSeconds": 10,
+          "timeoutSeconds": 1,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-nginx",
+      "swaggerPath": "",
+      "configMaps": [
+        {
+          "name": "control-plane-fe-configuration",
+          "mountPath": "/usr/static",
+          "subPaths": [
+            "configuration.json"
+          ]
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "frontend",
+          "from": 80,
+          "to": 8080
+        }
+      ]
+    },
+    "redis-auth": {
+      "name": "redis-auth",
+      "description": "Control Plane Redis Database employed to support authentication flow",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "bitnami/redis:7.2.5",
+      "createdAt": "2025-01-28T09:34:40.341Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "This will depend on your log parser",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "redis-auth",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "redis-auth",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "7.2.5",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-plain",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "environment": [
+        {
+          "name": "REDIS_PASSWORD",
+          "valueType": "plain",
+          "value": "{{CP_REDIS_MASTER_PASSWORD}}"
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "80m",
+          "min": "20m"
+        },
+        "memoryLimits": {
+          "max": "50Mi",
+          "min": "15Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "http",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 1,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "http",
+          "initialDelaySeconds": 5,
+          "periodSeconds": 10,
+          "timeoutSeconds": 1,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-plain",
+      "swaggerPath": "",
+      "configMaps": [
+        {
+          "name": "control-plane-redis-auth-configuration",
+          "mountPath": "/opt/bitnami/redis/mounted-etc/"
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "http",
+          "from": 6379,
+          "to": 6379
+        }
+      ]
+    },
+    "control-plane-login-site": {
+      "name": "control-plane-login-site",
+      "description": "Control Plane Frontend employed to support authentication flow",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "nexus.mia-platform.eu/backoffice/login-site:8.1.0",
+      "createdAt": "2025-01-28T09:34:40.504Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "nginx",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "control-plane-login-site",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "control-plane-login-site",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "8.1.0",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-nginx",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "oauth-login-site",
+      "environment": [
+        {
+          "name": "LOG_LEVEL",
+          "value": "{{LOG_LEVEL}}",
+          "valueType": "plain"
+        },
+        {
+          "name": "MICROSERVICE_GATEWAY_SERVICE_NAME",
+          "value": "microservice-gateway",
+          "valueType": "plain"
+        },
+        {
+          "name": "TRUSTED_PROXIES",
+          "value": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16",
+          "valueType": "plain"
+        },
+        {
+          "name": "HTTP_PORT",
+          "value": "3000",
+          "valueType": "plain"
+        },
+        {
+          "name": "USERID_HEADER_KEY",
+          "value": "miauserid",
+          "valueType": "plain"
+        },
+        {
+          "name": "GROUPS_HEADER_KEY",
+          "value": "miausergroups",
+          "valueType": "plain"
+        },
+        {
+          "name": "CLIENTTYPE_HEADER_KEY",
+          "value": "client-type",
+          "valueType": "plain"
+        },
+        {
+          "name": "BACKOFFICE_HEADER_KEY",
+          "value": "isbackoffice",
+          "valueType": "plain"
+        },
+        {
+          "name": "USER_PROPERTIES_HEADER_KEY",
+          "value": "miauserproperties",
+          "valueType": "plain"
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "80m",
+          "min": "10m"
+        },
+        "memoryLimits": {
+          "max": "30Mi",
+          "min": "15Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "frontend",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 1,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "frontend",
+          "initialDelaySeconds": 5,
+          "periodSeconds": 10,
+          "timeoutSeconds": 1,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-nginx",
+      "swaggerPath": "",
+      "containerPorts": [
+        {
+          "name": "frontend",
+          "from": 80,
+          "to": 8080
+        }
+      ]
+    },
+    "authentication-service": {
+      "name": "authentication-service",
+      "description": "Use Mia-Platform core Authentication Service to provide OAuth2 compliant user authentication API.",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "nexus.mia-platform.eu/core/authentication-service:3.9.0",
+      "createdAt": "2025-01-28T09:34:40.718Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "pino",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "authentication-service",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "authentication-service",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "3.9.0",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-json",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "fd.control-plane",
+      "environment": [
+        {
+          "name": "LOG_LEVEL",
+          "valueType": "plain",
+          "value": "{{LOG_LEVEL}}"
+        },
+        {
+          "name": "HTTP_PORT",
+          "valueType": "plain",
+          "value": "3000"
+        },
+        {
+          "name": "DELAY_SHUTDOWN_SECONDS",
+          "valueType": "plain",
+          "value": "10"
+        },
+        {
+          "name": "CONFIG_FILE_PATH",
+          "valueType": "plain",
+          "value": "/configs"
+        },
+        {
+          "name": "CONFIG_FILE_NAME",
+          "valueType": "plain",
+          "value": "config"
+        },
+        {
+          "name": "ORIGINAL_PROTOCOL_HEADER",
+          "valueType": "plain",
+          "value": "X-Forwarded-Proto"
+        },
+        {
+          "name": "ADDITIONAL_HEADERS_TO_PROXY",
+          "valueType": "plain",
+          "value": "request-id"
+        },
+        {
+          "name": "USERS_CRUD_BASE_URL",
+          "valueType": "plain",
+          "value": "http://crud-service/cp-users"
+        },
+        {
+          "name": "REDIS_MODE",
+          "valueType": "plain",
+          "value": "normal"
+        },
+        {
+          "name": "REDIS_HOSTS",
+          "valueType": "plain",
+          "value": "redis-auth:6379"
+        },
+        {
+          "name": "REDIS_USERNAME",
+          "valueType": "plain",
+          "value": "{{CP_REDIS_USERNAME}}"
+        },
+        {
+          "name": "REDIS_PASSWORD",
+          "valueType": "plain",
+          "value": "{{CP_REDIS_PASSWORD}}"
+        },
+        {
+          "name": "PROVIDER_TOKEN_PASS_PHRASE",
+          "valueType": "plain",
+          "value": "{{CP_REDIS_PASSPHRASE}}"
+        },
+        {
+          "name": "EXPIRE_DELTA_PROVIDER_TOKEN_SEC",
+          "valueType": "plain",
+          "value": "300"
+        },
+        {
+          "name": "MIA_JWT_TOKEN_VALID_DURATION_SEC",
+          "valueType": "plain",
+          "value": "86400"
+        },
+        {
+          "name": "MIA_JWT_TOKEN_SIGNING_METHOD",
+          "valueType": "plain",
+          "value": "RS256"
+        },
+        {
+          "name": "MIA_JWT_TOKEN_PRIVATE_KEY_FILE_PATH",
+          "valueType": "plain",
+          "value": "/secrets/private-key.pem"
+        },
+        {
+          "name": "MIA_JWT_TOKEN_PRIVATE_KEY_KID",
+          "valueType": "plain",
+          "value": "{{CP_JWT_CLIENT_KID}}"
+        },
+        {
+          "name": "MIA_REFRESH_TOKEN_VALID_DURATION_SEC",
+          "valueType": "plain",
+          "value": "604800"
+        },
+        {
+          "name": "EXPOSE_METRICS",
+          "valueType": "plain",
+          "value": "true"
+        },
+        {
+          "name": "REDIS_SESSION_SCOPE",
+          "valueType": "plain",
+          "value": "{{CP_REDIS_SCOPE}}"
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "80m",
+          "min": "10m"
+        },
+        "memoryLimits": {
+          "max": "30Mi",
+          "min": "15Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "http",
+          "path": "/-/healthz",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 3,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "http",
+          "path": "/-/ready",
+          "initialDelaySeconds": 5,
+          "periodSeconds": 10,
+          "timeoutSeconds": 3,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-json",
+      "swaggerPath": "",
+      "configMaps": [
+        {
+          "name": "authentication-service-configuration",
+          "mountPath": "/configs"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "authentication-service-secrets",
+          "mountPath": "/secrets"
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "http",
+          "from": 80,
+          "to": 3000
+        }
+      ]
+    },
+    "authorization-service": {
+      "name": "authorization-service",
+      "description": "Use this service to authorize routes to request certain resources, leveraging OpenID Connect and simple user-defined configurations",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "nexus.mia-platform.eu/core/authorization-service:2.4.2",
+      "createdAt": "2025-01-28T09:34:41.032Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "pino",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "authorization-service",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "authorization-service",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "2.4.2",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-json",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "authorization-service",
+      "mapEnvVarToMountPath": {
+        "authorization-service-config": {
+          "type": "folder",
+          "envName": "CONFIGURATION_PATH"
+        }
+      },
+      "environment": [
+        {
+          "name": "LOG_LEVEL",
+          "valueType": "plain",
+          "value": "{{LOG_LEVEL}}"
+        },
+        {
+          "name": "HTTP_PORT",
+          "valueType": "plain",
+          "value": "3000"
+        },
+        {
+          "name": "CONFIGURATION_PATH",
+          "valueType": "plain",
+          "value": "/configs"
+        },
+        {
+          "name": "CONFIGURATION_FILE_NAME",
+          "valueType": "plain",
+          "value": "auth"
+        },
+        {
+          "name": "BACKOFFICE_HEADER_KEY",
+          "valueType": "plain",
+          "value": "isbackoffice"
+        },
+        {
+          "name": "SERVICE_VERSION",
+          "valueType": "plain",
+          "value": "2.4.2"
+        },
+        {
+          "name": "USERINFO_URL",
+          "valueType": "plain",
+          "value": "http://authentication-service/userinfo"
+        },
+        {
+          "name": "CUSTOM_USER_ID_KEY",
+          "valueType": "plain",
+          "value": "userId"
+        },
+        {
+          "name": "HEADERS_TO_PROXY",
+          "valueType": "plain",
+          "value": "connection,upgrade,sec-websocket-protocol,sec-websocket-version,x-request-id,request-id,cookie,authorization,client-type,host,x-forwarded-host"
+        },
+        {
+          "name": "AUTHORIZATION_STRICT_MODE_ENABLED",
+          "valueType": "plain",
+          "value": "true"
+        },
+        {
+          "name": "USER_PROPERTIES_TO_PROXY",
+          "valueType": "plain",
+          "value": "provider,email,username,name"
+        },
+        {
+          "name": "CLIENT_TYPE_HEADER_KEY",
+          "valueType": "plain",
+          "value": "client-type"
+        },
+        {
+          "name": "BACKOFFICE_USERINFO_URL",
+          "valueType": "plain",
+          "value": ""
+        },
+        {
+          "name": "CUSTOM_PERMISSIONS_KEY",
+          "valueType": "plain",
+          "value": "permissions"
+        },
+        {
+          "name": "AUTHORIZATION_HEADERS_TO_PROXY",
+          "valueType": "plain",
+          "value": ""
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "100m",
+          "min": "10m"
+        },
+        "memoryLimits": {
+          "max": "80Mi",
+          "min": "20Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "http",
+          "path": "/-/healthz",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 3,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "http",
+          "path": "/-/ready",
+          "initialDelaySeconds": 5,
+          "periodSeconds": 10,
+          "timeoutSeconds": 3,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-json",
+      "swaggerPath": "/documentation/json",
+      "configMaps": [
+        {
+          "name": "authorization-service-config",
+          "mountPath": "/configs",
+          "viewAsReadOnly": true
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "http",
+          "from": 80,
+          "to": 3000
+        }
+      ]
+    },
+    "crud-service": {
+      "name": "crud-service",
+      "description": "Use Mia-Platform core Crud Service to manage different instances of the service.",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "nexus.mia-platform.eu/core/crud-service:7.1.1",
+      "createdAt": "2025-01-28T09:34:41.193Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "pino",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "crud-service",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "crud-service",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "7.1.1",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-json",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "crud-service",
+      "mapEnvVarToMountPath": {
+        "collections": {
+          "type": "folder",
+          "envName": "COLLECTION_DEFINITION_FOLDER"
+        }
+      },
+      "environment": [
+        {
+          "name": "LOG_LEVEL",
+          "valueType": "plain",
+          "value": "{{LOG_LEVEL}}"
+        },
+        {
+          "name": "HTTP_PORT",
+          "valueType": "plain",
+          "value": "3000"
+        },
+        {
+          "name": "COLLECTION_DEFINITION_FOLDER",
+          "valueType": "plain",
+          "value": "/home/node/app/collections"
+        },
+        {
+          "name": "USER_ID_HEADER_KEY",
+          "valueType": "plain",
+          "value": "miauserid"
+        },
+        {
+          "name": "TRUSTED_PROXIES",
+          "valueType": "plain",
+          "value": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        },
+        {
+          "name": "CRUD_LIMIT_CONSTRAINT_ENABLED",
+          "valueType": "plain",
+          "value": "{{CRUD_LIMIT_CONSTRAINT_ENABLED}}"
+        },
+        {
+          "name": "EXPOSE_METRICS",
+          "valueType": "plain",
+          "value": "false"
+        },
+        {
+          "name": "MONGODB_URL",
+          "valueType": "plain",
+          "value": "{{MONGODB_URL}}"
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "500m",
+          "min": "100m"
+        },
+        "memoryLimits": {
+          "max": "350Mi",
+          "min": "70Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "http",
+          "path": "/-/healthz",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 5,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "http",
+          "path": "/-/ready",
+          "initialDelaySeconds": 30,
+          "periodSeconds": 10,
+          "timeoutSeconds": 5,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-json",
+      "swaggerPath": "/documentation/json",
+      "configMaps": [
+        {
+          "name": "crud-service-collections",
+          "mountPath": "/home/node/app/collections",
+          "viewAsReadOnly": true,
+          "link": {
+            "targetSection": "collections"
+          }
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "http",
+          "from": 80,
+          "to": 3000
+        }
+      ]
+    },
+    "micro-lc": {
+      "name": "micro-lc",
+      "description": "micro-lc config server",
+      "type": "custom",
+      "advanced": false,
+      "replicas": 1,
+      "dockerImage": "nexus.mia-platform.eu/microlc/middleware:{{MICRO_LC_MANAGER_VERSION}}",
+      "createdAt": "2025-01-28T09:34:41.424Z",
+      "annotations": [
+        {
+          "name": "mia-platform.eu/version",
+          "value": "13.5.1",
+          "description": "Version of Mia-Platform used by the project",
+          "readOnly": true
+        },
+        {
+          "name": "fluentbit.io/parser",
+          "value": "pino",
+          "description": "Pino parser annotation for Fluent Bit",
+          "readOnly": true
+        }
+      ],
+      "labels": [
+        {
+          "name": "app",
+          "value": "micro-lc",
+          "description": "Name of the microservice, in the service selector",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/name",
+          "value": "micro-lc",
+          "description": "Name of the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/version",
+          "value": "{{MICRO_LC_MANAGER_VERSION}}",
+          "description": "Tag of the Docker image",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/component",
+          "value": "custom",
+          "description": "Microservice kind, for the Console",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/part-of",
+          "value": "p4samd-test-install",
+          "description": "Project that own the microservice",
+          "readOnly": true
+        },
+        {
+          "name": "app.kubernetes.io/managed-by",
+          "value": "mia-platform",
+          "description": "Identify who manage the service",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/stage",
+          "value": "{{STAGE_TO_DEPLOY}}",
+          "description": "Environment used for the deploy",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/tenant",
+          "value": "mia-care-tenant",
+          "description": "Tenant owner of the project",
+          "readOnly": true
+        },
+        {
+          "name": "mia-platform.eu/log-type",
+          "value": "mia-json",
+          "description": "Format of logs for the microservice",
+          "readOnly": true
+        }
+      ],
+      "tags": [
+        "custom"
+      ],
+      "sourceComponentId": "backoffice-backend",
+      "environment": [
+        {
+          "name": "HTTP_PORT",
+          "valueType": "plain",
+          "value": "3000"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "valueType": "plain",
+          "value": "{{LOG_LEVEL}}"
+        },
+        {
+          "name": "MICROSERVICE_GATEWAY_SERVICE_NAME",
+          "valueType": "plain",
+          "value": "microservice-gateway"
+        },
+        {
+          "name": "TRUSTED_PROXIES",
+          "valueType": "plain",
+          "value": "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        },
+        {
+          "name": "USERID_HEADER_KEY",
+          "valueType": "plain",
+          "value": "miauserid"
+        },
+        {
+          "name": "GROUPS_HEADER_KEY",
+          "valueType": "plain",
+          "value": "miausergroups"
+        },
+        {
+          "name": "CLIENTTYPE_HEADER_KEY",
+          "valueType": "plain",
+          "value": "client-type"
+        },
+        {
+          "name": "BACKOFFICE_HEADER_KEY",
+          "valueType": "plain",
+          "value": "isbackoffice"
+        },
+        {
+          "name": "USER_PROPERTIES_HEADER_KEY",
+          "valueType": "plain",
+          "value": "miauserproperties"
+        }
+      ],
+      "resources": {
+        "cpuLimits": {
+          "max": "100m",
+          "min": "20m"
+        },
+        "memoryLimits": {
+          "max": "120Mi",
+          "min": "50Mi"
+        }
+      },
+      "probes": {
+        "liveness": {
+          "port": "http",
+          "path": "/-/healthz",
+          "initialDelaySeconds": 15,
+          "periodSeconds": 20,
+          "timeoutSeconds": 5,
+          "failureThreshold": 3
+        },
+        "readiness": {
+          "port": "http",
+          "path": "/-/ready",
+          "initialDelaySeconds": 5,
+          "periodSeconds": 10,
+          "timeoutSeconds": 5,
+          "successThreshold": 1,
+          "failureThreshold": 3
+        },
+        "startup": {}
+      },
+      "terminationGracePeriodSeconds": 30,
+      "logParser": "mia-json",
+      "swaggerPath": "/documentation/json",
+      "configMaps": [
+        {
+          "name": "micro-lc-static-files",
+          "mountPath": "/usr/static/public",
+          "viewAsReadOnly": true
+        },
+        {
+          "name": "micro-lc-configurations",
+          "mountPath": "/usr/static/configurations",
+          "viewAsReadOnly": true
+        },
+        {
+          "name": "micro-lc-server-configuration",
+          "mountPath": "/usr/src/app/config",
+          "viewAsReadOnly": true
+        },
+        {
+          "name": "micro-lc-assets",
+          "mountPath": "/usr/static/public/assets"
+        }
+      ],
+      "containerPorts": [
+        {
+          "name": "http",
+          "from": 80,
+          "to": 3000,
+          "protocol": "TCP"
+        }
+      ]
+    }
+  },
+  "configMaps": {
+    "api-gateway-envoy-config": {
+      "name": "api-gateway-envoy-config",
+      "gitFilesFolder": "api-gateway/envoy",
+      "files": [
+        {
+          "name": "cds.json"
+        },
+        {
+          "name": "lds.json"
+        },
+        {
+          "name": "envoy.json"
+        }
+      ]
+    },
+    "control-plane-configuration": {
+      "name": "control-plane-configuration",
+      "files": [
+        {
+          "name": "configuration.json"
+        }
+      ]
+    },
+    "control-plane-fe-configuration": {
+      "name": "control-plane-fe-configuration",
+      "files": [
+        {
+          "name": "configuration.json"
+        }
+      ]
+    },
+    "control-plane-redis-auth-configuration": {
+      "name": "control-plane-redis-auth-configuration",
+      "files": [
+        {
+          "name": "redis.conf"
+        }
+      ]
+    },
+    "authentication-service-configuration": {
+      "name": "authentication-service-configuration",
+      "files": [
+        {
+          "name": "config.json"
+        }
+      ]
+    },
+    "authorization-service-config": {
+      "gitFilesFolder": "authorization-service",
+      "files": [
+        {
+          "name": "auth.json"
+        }
+      ],
+      "name": "authorization-service-config"
+    },
+    "crud-service-collections": {
+      "gitFilesFolder": "crud-service",
+      "files": [
+        {
+          "name": "cp-users-cp-users.json"
+        }
+      ],
+      "name": "crud-service-collections"
+    },
+    "micro-lc-static-files": {
+      "name": "micro-lc-static-files",
+      "files": [
+        {
+          "name": "index.html"
+        }
+      ]
+    },
+    "micro-lc-configurations": {
+      "name": "micro-lc-configurations",
+      "files": [
+        {
+          "name": "bindings.config.json"
+        },
+        {
+          "name": "config.json"
+        },
+        {
+          "name": "roles.config.json"
+        },
+        {
+          "name": "users.config.json"
+        }
+      ]
+    },
+    "micro-lc-server-configuration": {
+      "name": "micro-lc-server-configuration",
+      "files": [
+        {
+          "name": "config.json"
+        }
+      ]
+    },
+    "micro-lc-assets": {
+      "name": "micro-lc-assets",
+      "files": [
+        {
+          "name": "style.css"
+        }
+      ]
+    },
+    "control-plane-50f0bb88-b6d9-49-runtime-configuration": {
+      "name": "control-plane-50f0bb88-b6d9-49-runtime-configuration",
+      "files": [
+        {
+          "name": "fast-data-configuration.json"
+        }
+      ]
+    }
+  },
+  "serviceSecrets": {
+    "authentication-service-secrets": {
+      "name": "authentication-service-secrets"
+    }
+  },
+  "apiVersions": [],
+  "unsecretedVariables": [
+    {
+      "name": "CP_REDIS_SCOPE",
+      "environments": {
+        "DEV": {
+          "value": ""
+        },
+        "PREPROD": {
+          "value": ""
+        },
+        "PROD": {
+          "value": ""
+        }
+      }
+    },
+    {
+      "name": "OKTA_BASE_URL",
+      "environments": {
+        "DEV": {
+          "value": ""
+        },
+        "PREPROD": {
+          "value": ""
+        },
+        "PROD": {
+          "value": ""
+        }
+      }
+    },
+    {
+      "name": "CP_APP_ID",
+      "environments": {
+        "DEV": {
+          "value": ""
+        },
+        "PREPROD": {
+          "value": ""
+        },
+        "PROD": {
+          "value": ""
+        }
+      }
+    },
+    {
+      "name": "CP_PROVIDER_ID",
+      "environments": {
+        "DEV": {
+          "value": ""
+        },
+        "PREPROD": {
+          "value": ""
+        },
+        "PROD": {
+          "value": ""
+        }
+      }
+    },
+    {
+      "name": "CP_BASE_URL",
+      "environments": {
+        "DEV": {
+          "value": ""
+        },
+        "PREPROD": {
+          "value": ""
+        },
+        "PROD": {
+          "value": ""
+        }
+      }
+    },
+    {
+      "name": "MICRO_LC_VERSION",
+      "environments": {
+        "DEV": {
+          "value": "2.4.0"
+        },
+        "PREPROD": {
+          "value": "2.4.0"
+        },
+        "PROD": {
+          "value": "2.4.0"
+        }
+      }
+    },
+    {
+      "name": "MICRO_LC_MANAGER_VERSION",
+      "environments": {
+        "DEV": {
+          "value": "3.1.1"
+        },
+        "PREPROD": {
+          "value": "3.1.1"
+        },
+        "PROD": {
+          "value": "3.1.1"
+        }
+      }
+    },
+    {
+      "name": "BACK_KIT_VERSION",
+      "environments": {
+        "DEV": {
+          "value": "1.5.0"
+        },
+        "PREPROD": {
+          "value": "1.5.0"
+        },
+        "PROD": {
+          "value": "1.5.0"
+        }
+      }
+    }
+  ],
+  "listeners": {
+    "frontend": {
+      "name": "frontend",
+      "port": 8080,
+      "description": "Default listener for frontend API",
+      "selectedByDefault": true
+    }
+  },
+  "version": "0.61.0",
+  "servicesToDeploy": {
+    "api-gateway": {
+      "type": "custom",
+      "name": "api-gateway",
+      "tags": [
+        "custom"
+      ],
+      "version": "v1.29.3",
+      "checksum": "b0bf2c716687f5fcc47c78281d4886828635492128cf7e7dbb13c846c7469982"
+    },
+    "control-plane": {
+      "type": "custom",
+      "name": "control-plane",
+      "tags": [
+        "custom"
+      ],
+      "version": "1.1.0",
+      "checksum": "95eceb19878a16ed7580cb393cd76234982423fec66d42b3850b5c09d57cf0e1"
+    },
+    "control-plane-fe": {
+      "type": "custom",
+      "name": "control-plane-fe",
+      "tags": [
+        "custom"
+      ],
+      "version": "0.2.1",
+      "checksum": "5d7d3b9ad6635e985daee1bd8fdf6f86c64855d8b94a0b4266c1a194cc4ecbe2"
+    },
+    "redis-auth": {
+      "type": "custom",
+      "name": "redis-auth",
+      "tags": [
+        "custom"
+      ],
+      "version": "7.2.5",
+      "checksum": "4fb0b1c6e0d9639d9a54d485d0fd05d6aad708e8e74e0a9f349d0a9876b1f48d"
+    },
+    "control-plane-login-site": {
+      "type": "custom",
+      "name": "control-plane-login-site",
+      "tags": [
+        "custom"
+      ],
+      "version": "8.1.0",
+      "checksum": "3d094425a666cb21efd7bc871d90822e5ce91350b8c2a7cd62c09cf750ae3bf1"
+    },
+    "authentication-service": {
+      "type": "custom",
+      "name": "authentication-service",
+      "tags": [
+        "custom"
+      ],
+      "version": "3.9.0",
+      "checksum": "14ed1bb93a7ed034e965ba16a378842421165565a9b30f9758b9bfe044e905d4"
+    },
+    "authorization-service": {
+      "type": "custom",
+      "name": "authorization-service",
+      "tags": [
+        "custom"
+      ],
+      "version": "2.4.2",
+      "checksum": "f99d5099430dd9619a85a27d31d24bc26787512a402651e837811354ea5f1760"
+    },
+    "crud-service": {
+      "type": "custom",
+      "name": "crud-service",
+      "tags": [
+        "custom"
+      ],
+      "version": "7.1.1",
+      "checksum": "a7456d5861c8aa24a7449f9c1433bc3b0b47bbc16aaf98f81dafe07fb959be4d"
+    },
+    "micro-lc": {
+      "type": "custom",
+      "name": "micro-lc",
+      "tags": [
+        "custom"
+      ],
+      "version": "{{MICRO_LC_MANAGER_VERSION}}",
+      "checksum": "512cc1630e7e403ef8625e0c6e446e3e350bf31ff9bf6a04829d47d86dc4b6a5"
+    }
+  },
+  "platformVersion": "13.5.1",
+  "updatedAt": "2025-01-28T09:34:45.417Z"
+}
