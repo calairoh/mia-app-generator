@@ -1706,44 +1706,6 @@
                 "order": 1
               }
             ]
-          },
-          {
-            "name": "nameSearch",
-            "type": "normal",
-            "unique": false,
-            "fields": [
-              {
-                "name": "email",
-                "order": 1
-              },
-              {
-                "name": "name",
-                "order": 1
-              },
-              {
-                "name": "__STATE__",
-                "order": 1
-              }
-            ]
-          },
-          {
-            "name": "upsertSupport",
-            "type": "normal",
-            "unique": false,
-            "fields": [
-              {
-                "name": "providerId",
-                "order": 1
-              },
-              {
-                "name": "providerUserId",
-                "order": 1
-              },
-              {
-                "name": "realm",
-                "order": 1
-              }
-            ]
           }
         ]
       }

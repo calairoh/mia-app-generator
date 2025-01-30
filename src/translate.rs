@@ -8,23 +8,33 @@ use std::collections::HashMap;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ConsoleConfig {
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     applications: HashMap<String, ConsoleApplication>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     collections: HashMap<String, ConsoleCollection>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     endpoints: HashMap<String, ConsoleEndpoint>,
     groups: Vec<Value>,
     secrets: Vec<Value>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     cmsCategories: HashMap<String, Value>,
     cmsSettings: CmsSettings,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     cmsAnalytics: HashMap<String, Value>,
     cmsDashboard: Vec<Value>,
     decorators: ConsoleDecorators,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     services: HashMap<String, ConsoleService>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     configMaps: HashMap<String, ConsoleConfigMap>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     serviceSecrets: HashMap<String, ConsoleServiceSecret>,
     apiVersions: Vec<Value>,
     unsecretedVariables: Vec<ConsoleUnsecretedVariable>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     listeners: HashMap<String, ConsoleListener>,
     version: String,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     servicesToDeploy: HashMap<String, ConsoleServiceToDeploy>,
     platformVersion: String,
     updatedAt: String,
@@ -41,9 +51,13 @@ struct ConsoleApplication {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleResources {
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     services: HashMap<String, ConsoleResourceService>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     endpoints: HashMap<String, ConsoleResourceEndpoint>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     collections: HashMap<String, ConsoleResourceCollection>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     unsecretedVariables: HashMap<String, ConsoleResourceUnsecretedVariable>,
 }
 
@@ -98,8 +112,11 @@ struct ConsoleField {
     field_type: String,
     required: bool,
     nullable: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
     sensitivityValue: Option<i32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     encryptionEnabled: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     encryptionSearchable: Option<bool>,
 }
 
@@ -130,7 +147,9 @@ struct ConsoleEndpoint {
     basePath: String,
     #[serde(rename = "type")]
     endpoint_type: String,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
     tags: Vec<String>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     listeners: HashMap<String, bool>,
     pathRewrite: String,
     description: String,
@@ -148,10 +167,10 @@ struct ConsoleEndpoint {
     allowUnknownRequestContentType: bool,
     allowUnknownResponseContentType: bool,
     forceMicroserviceGatewayProxy: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    routes: Option<HashMap<String, ConsoleRoute>>,
     #[serde(default)]
-     routes: HashMap<String, ConsoleRoute>,
-     #[serde(default)]
-     #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(skip_serializing_if = "Option::is_none")]
     collectionId: Option<String>
 }
 
@@ -224,7 +243,9 @@ struct CmsSettings {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleDecorators {
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     preDecorators: HashMap<String, Value>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     postDecorators: HashMap<String, Value>,
 }
 
@@ -257,6 +278,7 @@ struct ConsoleService {
     #[serde(default)]
     execPreStop: Vec<String>,
      #[serde(default)]
+     #[serde(skip_serializing_if = "HashMap::is_empty")]
      mapEnvVarToMountPath: HashMap<String, ConsoleMapEnvVarToMountPath>
 }
 
@@ -311,6 +333,7 @@ struct ConsoleResourceLimits {
 struct ConsoleProbes {
     liveness: ConsoleProbe,
     readiness: ConsoleProbe,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     startup: HashMap<String, Value>,
 }
 
@@ -387,6 +410,7 @@ struct ConsoleServiceSecret {
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleUnsecretedVariable {
     name: String,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     environments: HashMap<String, ConsoleEnvironmentVariableValue>,
 }
 
@@ -416,10 +440,15 @@ struct ConsoleServiceToDeploy {
 // Output structs (Application Config)
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct ApplicationConfig {
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     services: HashMap<String, ApplicationService>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     endpoints: HashMap<String, ApplicationEndpoint>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     collections: HashMap<String, ApplicationCollection>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     unsecretedVariables: HashMap<String, ApplicationUnsecretedVariable>,
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     listeners: HashMap<String, ApplicationListener>,
 }
 
@@ -485,6 +514,7 @@ struct ApplicationProbes {
     liveness: ApplicationProbe,
     readiness: ApplicationProbe,
      #[serde(default)]
+     #[serde(skip_serializing_if = "HashMap::is_empty")]
     startup: HashMap<String, Value>,
 }
 
@@ -551,11 +581,13 @@ struct ApplicationEndpoint {
     forceMicroserviceGatewayProxy: bool,
     service: String,
     #[serde(default)]
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     routes: HashMap<String, ApplicationRoute>,
     #[serde(default)]
     #[serde(skip_serializing_if = "Option::is_none")]
     collectionId: Option<String>,
     #[serde(default)]
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
     listeners: HashMap<String, bool>,
     #[serde(default)]
     acl: String,
@@ -742,7 +774,7 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                     allowUnknownResponseContentType: endpoint.allowUnknownResponseContentType,
                     forceMicroserviceGatewayProxy: endpoint.forceMicroserviceGatewayProxy,
                     service: endpoint.service.clone().unwrap_or("".to_string()),
-                    routes: endpoint.routes.iter().map(|(route_key, route)| (route_key.clone(), ApplicationRoute {
+                    routes: endpoint.routes.as_ref().unwrap_or(&HashMap::new()).iter().map(|(route_key, route)| (route_key.clone(), ApplicationRoute {
                             id: route.id.clone(),
                             path: route.path.clone(),
                             public: RoutePublic { inherited: route.public.inherited },
