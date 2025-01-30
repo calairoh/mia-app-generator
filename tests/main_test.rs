@@ -1,6 +1,6 @@
 
-use std::fs;
 use std::process::Command;
+use serde_json::Value;
 
 #[test]
 fn test_main() {
@@ -21,7 +21,12 @@ fn test_main() {
     let output_content = std::fs::read_to_string(test_output_path).unwrap();
     let expected_content = std::fs::read_to_string(test_expected_path).unwrap();
 
-    assert_eq!(output_content.trim(), expected_content.trim());
+    // Deserialize the JSON content
+    let output_json: Value = serde_json::from_str(&output_content).expect("Failed to parse output JSON");
+    let expected_json: Value = serde_json::from_str(&expected_content).expect("Failed to parse expected JSON");
+
+    // Compare the JSON values
+    assert_eq!(output_json, expected_json, "The JSON content does not match");
 
     // Clean up test files
     std::fs::remove_file(test_output_path).unwrap();

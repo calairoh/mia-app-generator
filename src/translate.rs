@@ -9,8 +9,6 @@ use std::collections::HashMap;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ConsoleConfig {
     #[serde(skip_serializing_if = "HashMap::is_empty")]
-    applications: HashMap<String, ConsoleApplication>,
-    #[serde(skip_serializing_if = "HashMap::is_empty")]
     collections: HashMap<String, ConsoleCollection>,
     #[serde(skip_serializing_if = "HashMap::is_empty")]
     endpoints: HashMap<String, ConsoleEndpoint>,
@@ -33,20 +31,6 @@ pub struct ConsoleConfig {
     unsecretedVariables: Vec<ConsoleUnsecretedVariable>,
     #[serde(skip_serializing_if = "HashMap::is_empty")]
     listeners: HashMap<String, ConsoleListener>,
-    version: String,
-    #[serde(skip_serializing_if = "HashMap::is_empty")]
-    servicesToDeploy: HashMap<String, ConsoleServiceToDeploy>,
-    platformVersion: String,
-    updatedAt: String,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-struct ConsoleApplication {
-    name: String,
-    description: String,
-    generatedFrom: String,
-    resources: ConsoleResources,
-    sourceMarketplaceItem: ConsoleSourceMarketplaceItem,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -226,9 +210,7 @@ struct RouteAllowUnknownRequestContentType {
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct RouteAllowUnknownResponseContentType {
-     inherited: bool,
-     #[serde(default)]
-    value: bool
+     inherited: bool
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -277,9 +259,9 @@ struct ConsoleService {
     containerPorts: Vec<ConsoleContainerPort>,
     #[serde(default)]
     execPreStop: Vec<String>,
-     #[serde(default)]
-     #[serde(skip_serializing_if = "HashMap::is_empty")]
-     mapEnvVarToMountPath: HashMap<String, ConsoleMapEnvVarToMountPath>
+    #[serde(default)]
+    #[serde(skip_serializing_if = "HashMap::is_empty")]
+    mapEnvVarToMountPath: HashMap<String, ConsoleMapEnvVarToMountPath>
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
@@ -383,8 +365,6 @@ struct ConsoleContainerPort {
     name: String,
     from: i32,
     to: i32,
-     #[serde(default)]
-    protocol: String
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -483,9 +463,7 @@ struct ApplicationService {
 struct ApplicationContainerPort {
     name: String,
     from: i32,
-    to: i32,
-    #[serde(default)]
-    protocol: String,
+    to: i32
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
@@ -676,8 +654,7 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                         .map(|port| ApplicationContainerPort {
                             name: port.name.clone(),
                             from: port.from,
-                            to: port.to,
-                            protocol: port.protocol.clone(),
+                            to: port.to
                         })
                         .collect(),
                     service_type: "plugin".to_string(),
@@ -783,7 +760,7 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                             acl: RouteAcl { inherited: route.acl.inherited },
                             backofficeAcl: RouteBackofficeAcl { inherited: route.backofficeAcl.inherited },
                             allowUnknownRequestContentType: RouteAllowUnknownRequestContentType { inherited: route.allowUnknownRequestContentType.inherited },
-                            allowUnknownResponseContentType: RouteAllowUnknownResponseContentType { inherited: route.allowUnknownResponseContentType.inherited, value: route.allowUnknownResponseContentType.value },
+                            allowUnknownResponseContentType: RouteAllowUnknownResponseContentType { inherited: route.allowUnknownResponseContentType.inherited },
                             verb: route.verb.clone(),
                             preDecorators: route.preDecorators.clone(),
                            postDecorators: route.postDecorators.clone()
