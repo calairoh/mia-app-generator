@@ -82,9 +82,9 @@ struct ConsoleCollection {
     #[serde(rename = "type")]
     collection_type: String,
     internalEndpoints: Vec<ConsoleInternalEndpoint>,
-    description: String,
+    description: Option<String>,
     tags: Vec<String>,
-    indexes: Vec<ConsoleIndex>,
+    indexes: Option<Vec<ConsoleIndex>>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -136,7 +136,7 @@ struct ConsoleEndpoint {
     #[serde(skip_serializing_if = "HashMap::is_empty")]
     listeners: HashMap<String, bool>,
     pathRewrite: String,
-    description: String,
+    description: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     service: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -234,7 +234,7 @@ struct ConsoleDecorators {
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleService {
     name: String,
-    description: String,
+    description: Option<String>,
     #[serde(rename = "type")]
     service_type: String,
     advanced: bool,
@@ -248,10 +248,10 @@ struct ConsoleService {
     sourceComponentId: Option<String>,
     environment: Vec<ConsoleEnvironmentVariable>,
     resources: ConsoleServiceResources,
-    probes: ConsoleProbes,
+    probes: Option<ConsoleProbes>,
     terminationGracePeriodSeconds: i32,
     logParser: String,
-    swaggerPath: String,
+    swaggerPath: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     configMaps: Option<Vec<ConsoleServiceConfigMap>>,
     #[serde(default)]
@@ -275,7 +275,7 @@ struct ConsoleMapEnvVarToMountPath {
 struct ConsoleAnnotation {
     name: String,
     value: String,
-    description: String,
+    description: Option<String>,
     readOnly: bool,
 }
 
@@ -283,14 +283,16 @@ struct ConsoleAnnotation {
 struct ConsoleLabel {
     name: String,
     value: String,
-    description: String,
+    description: Option<String>,
     readOnly: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleEnvironmentVariable {
     name: String,
-    value: String,
+    value: Option<String>,
+    secretName: Option<String>,
+    secretKey: Option<String>,
     valueType: String,
      #[serde(default)]
     readOnly: bool,
@@ -298,16 +300,14 @@ struct ConsoleEnvironmentVariable {
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleServiceResources {
-    cpuLimits: ConsoleResourceLimits,
-    memoryLimits: ConsoleResourceLimits,
+    cpuLimits: Option<ConsoleResourceLimits>,
+    memoryLimits: Option<ConsoleResourceLimits>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 struct ConsoleResourceLimits {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    max: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    min: Option<String>,
+    max: String,
+    min: String,
 }
 
 
@@ -315,8 +315,6 @@ struct ConsoleResourceLimits {
 struct ConsoleProbes {
     liveness: ConsoleProbe,
     readiness: ConsoleProbe,
-    #[serde(skip_serializing_if = "HashMap::is_empty")]
-    startup: HashMap<String, Value>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -403,7 +401,7 @@ struct ConsoleEnvironmentVariableValue {
 struct ConsoleListener {
     name: String,
     port: i32,
-    description: String,
+    description: Option<String>,
     selectedByDefault: bool,
 }
 
@@ -440,13 +438,13 @@ struct ApplicationService {
     service_type: String,
     defaultEnvironmentVariables: Vec<ApplicationEnvironmentVariable>,
     defaultResources: ApplicationResources,
-    defaultProbes: ApplicationProbes,
-    defaultDocumentationPath: String,
+    defaultProbes: Option<ApplicationProbes>,
+    defaultDocumentationPath: Option<String>,
     defaultConfigMaps: Vec<ApplicationServiceConfigMap>,
     defaultLogParser: String,
     defaultTerminationGracePeriodSeconds: i32,
     name: String,
-    description: String,
+    description: Option<String>,
     dockerImage: String,
      #[serde(default)]
      execPreStop: Vec<String>,
@@ -469,8 +467,13 @@ struct ApplicationContainerPort {
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct ApplicationEnvironmentVariable {
     name: String,
-    value: String,
     valueType: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    secretKey: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    secretName: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    value: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
@@ -481,19 +484,14 @@ struct ApplicationResources {
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct ApplicationResourceLimits {
-    #[serde(skip_serializing_if = "Option::is_none")]
-    max: Option<String>,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    min: Option<String>,
+    max: String,
+    min: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, Default)]
 struct ApplicationProbes {
     liveness: ApplicationProbe,
     readiness: ApplicationProbe,
-     #[serde(default)]
-     #[serde(skip_serializing_if = "HashMap::is_empty")]
-    startup: HashMap<String, Value>,
 }
 
 
@@ -547,7 +545,7 @@ struct ApplicationServiceSecretRef {
 struct ApplicationEndpoint {
     defaultBasePath: String,
     defaultPathRewrite: String,
-    description: String,
+    description: Option<String>,
     #[serde(rename = "type")]
     endpoint_type: String,
     tags: Vec<String>,
@@ -605,7 +603,7 @@ struct ApplicationBackofficeAcl {
 struct ApplicationCollection {
     defaultName: String,
     id: String,
-    description: String,
+    description: Option<String>,
     tags: Vec<String>,
     fields: Vec<ConsoleField>,
     internalEndpoints: Vec<ConsoleInternalEndpoint>,
@@ -624,7 +622,7 @@ struct ApplicationUnsecretedVariable {
 struct ApplicationListener {
     name: String,
     port: String,
-    description: String,
+    description: Option<String>,
     selectedByDefault: bool,
     ownedBy: ApplicationListenerOwnedBy,
 }
@@ -665,6 +663,8 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                             name: env.name.clone(),
                             value: env.value.clone(),
                             valueType: env.valueType.clone(),
+                            secretKey: env.secretKey.clone(),
+                            secretName: env.secretName.clone(),
                         })
                         .collect(),
                          defaultSecrets: service.secrets.iter().map(|secret| ApplicationServiceSecretRef{
@@ -673,35 +673,34 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                         }).collect(),
                     defaultResources: ApplicationResources {
                         cpuLimits: ApplicationResourceLimits {
-                            max: service.resources.cpuLimits.max.clone(),
-                            min: service.resources.cpuLimits.min.clone(),
+                            max: service.resources.cpuLimits.as_ref().map_or_else(|| "".to_string(), |limits| limits.max.clone()),
+                            min: service.resources.cpuLimits.as_ref().map_or_else(|| "".to_string(), |limits| limits.min.clone()),
                         },
                         memoryLimits: ApplicationResourceLimits {
-                            max: service.resources.memoryLimits.max.clone(),
-                            min: service.resources.memoryLimits.min.clone(),
+                            max: service.resources.memoryLimits.as_ref().map_or_else(|| "".to_string(), |limits| limits.max.clone()),
+                            min: service.resources.memoryLimits.as_ref().map_or_else(|| "".to_string(), |limits| limits.min.clone()),
                         },
                     },
-                    defaultProbes: ApplicationProbes {
+                    defaultProbes: service.probes.as_ref().map(|probes| ApplicationProbes {
                         liveness: ApplicationProbe {
-                            path: service.probes.liveness.path.clone(),
-                            port: service.probes.liveness.port.clone(),
-                            initialDelaySeconds: service.probes.liveness.initialDelaySeconds,
-                             periodSeconds: service.probes.liveness.periodSeconds,
-                             timeoutSeconds: service.probes.liveness.timeoutSeconds,
-                            successThreshold: service.probes.liveness.successThreshold,
-                             failureThreshold: service.probes.liveness.failureThreshold
+                            path: probes.liveness.path.clone(),
+                            port: probes.liveness.port.clone(),
+                            initialDelaySeconds: probes.liveness.initialDelaySeconds,
+                            periodSeconds: probes.liveness.periodSeconds,
+                            timeoutSeconds: probes.liveness.timeoutSeconds,
+                            successThreshold: probes.liveness.successThreshold,
+                            failureThreshold: probes.liveness.failureThreshold,
                         },
                         readiness: ApplicationProbe {
-                            path: service.probes.readiness.path.clone(),
-                            port: service.probes.readiness.port.clone(),
-                            initialDelaySeconds: service.probes.readiness.initialDelaySeconds,
-                            periodSeconds: service.probes.readiness.periodSeconds,
-                            timeoutSeconds: service.probes.readiness.timeoutSeconds,
-                            successThreshold: service.probes.readiness.successThreshold,
-                            failureThreshold: service.probes.readiness.failureThreshold
-                        },
-                         startup: service.probes.startup.clone()
-                    },
+                            path: probes.readiness.path.clone(),
+                            port: probes.readiness.port.clone(),
+                            initialDelaySeconds: probes.readiness.initialDelaySeconds,
+                            periodSeconds: probes.readiness.periodSeconds,
+                            timeoutSeconds: probes.readiness.timeoutSeconds,
+                            successThreshold: probes.readiness.successThreshold,
+                            failureThreshold: probes.readiness.failureThreshold,
+                        }
+                    }),
                     defaultDocumentationPath: service.swaggerPath.clone(),
                     defaultConfigMaps: service
                         .configMaps
@@ -788,7 +787,7 @@ pub fn translate_config(console_json: String) -> Result<String, serde_json::Erro
                      fields: collection.fields.clone(),
                     internalEndpoints: collection.internalEndpoints.clone(),
                     collection_type: collection.collection_type.clone(),
-                     indexes: collection.indexes.clone()
+                    indexes: collection.indexes.as_ref().unwrap_or(&Vec::new()).clone()
 
                 },
             )
